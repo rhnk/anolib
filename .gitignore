@@ -6,10 +6,10 @@ __pycache__/
 *.egg-info/
 
 # ignore config folder
-anolib/experiment-configs/*
+samples/*
 
-!anolib/experiment-configs/config-sample.yml
-!anolib/experiment-configs/sample-data.csv
+!samples/config-sample.yml
+!samples/sample-data.csv
 
 .python-version
 uv.lock

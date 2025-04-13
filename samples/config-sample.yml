@@ -1,7 +1,7 @@
 input_sources:
   sample_data_csv:
     type: CSV
-    csv_path: anolib/experiment-configs/sample-data.csv
+    csv_path: https://raw.githubusercontent.com/rhnk/anolib/refs/heads/dev/samples/sample-data.csv
 record_sets:
   DiskWriteOps_for_a_993046:
     input_source: sample_data_csv

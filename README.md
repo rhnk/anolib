@@ -2,6 +2,9 @@
 Run declarative anomaly detection experiments on timeseries data
 
 ## Installation
+```sh
+pip install git+https://github.com/rhnk/anolib.git
+```
 
 ## Getting started
 ### via import
