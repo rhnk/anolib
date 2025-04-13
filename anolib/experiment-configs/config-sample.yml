@@ -1,0 +1,29 @@
+input_sources:
+  sample_data_csv:
+    type: CSV
+    csv_path: anolib/experiment-configs/sample-data.csv
+record_sets:
+  DiskWriteOps_for_a_993046:
+    input_source: sample_data_csv
+    type: SQL
+    records_selector: >
+      select
+        date, sum(value) as value
+      from self
+      where 
+        account_id = 'a_993046'
+        and metric = 'DiskWriteOps'
+      group by
+        date
+      order by
+        date asc
+    timeseries_column: date
+    metric_column: value
+experiments:
+  increase_in_DiskWriteOps_by_more_than_50_pct:
+    record_set: DiskWriteOps_for_a_993046
+    type: conditional
+    alert_condition:
+      - type: PCT_DELTA
+        value: 50
+        condition: ">="

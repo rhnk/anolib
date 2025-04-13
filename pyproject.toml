@@ -1,0 +1,28 @@
+[project]
+name = "anolib"
+version = "0.1.0"
+description = "Run declarative anomaly detection experiments on timeseries data"
+readme = "README.md"
+license = {file = 'LICENSE'}
+requires-python = ">=3.11"
+dependencies = [
+    "polars[all]>=1.26.0",
+    "pydantic>=2.11.3",
+    "pyyaml>=6.0.2",
+    "ruff>=0.11.4",
+]
+
+[project.scripts]
+anolib = "anolib.cli:main"
+
+[project.urls]
+repository = 'https://github.com/rhnk/anolib'
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "ipykernel>=6.29.5",
+    "isort>=6.0.1",
+    "mkdocs>=1.6.1",
+    "mkdocstrings[python]>=0.29.1",
+]

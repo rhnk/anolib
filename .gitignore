@@ -1,0 +1,17 @@
+# development and cache folders
+__pycache__/
+.vscode/
+.venv/
+.ruff_cache/
+*.egg-info/
+
+# ignore config folder
+anolib/experiment-configs/*
+
+!anolib/experiment-configs/config-sample.yml
+!anolib/experiment-configs/sample-data.csv
+
+.python-version
+uv.lock
+
+testing*
