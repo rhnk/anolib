@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from anolib.constants import AlertChannelType
+from anolib.utils.logger import info
 
 
 class AlertChannel(BaseModel):
@@ -8,4 +9,4 @@ class AlertChannel(BaseModel):
 
     def publish(self, records):
         if self.type == AlertChannelType.STDOUT:
-            print(records) if len(records) > 0 else print("No anomalies")
+            info(records) if len(records) > 0 else info("No anomalies")

@@ -1,11 +1,16 @@
 import argparse
+import logging
 
 from yaml import safe_load
 
 from anolib.models.configuration import Configuration
+from anolib.utils.logger import debug
 
 
 def main():
+    # set root logger level
+    logging.basicConfig(level=logging.INFO)
+
     parser = argparse.ArgumentParser(
         prog="anolib",
         description="Run declarative anomaly detection experiments on timeseries data",
@@ -19,6 +24,7 @@ def main():
 
     # Parse config
     config = Configuration(**config_dict)
+    debug(config)
     config.run_experiments()
 
 

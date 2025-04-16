@@ -5,6 +5,7 @@ from anolib.models.alert_channel import AlertChannel
 from anolib.models.experiment import Experiment
 from anolib.models.input_source import InputSource
 from anolib.models.record_set import RecordSet
+from anolib.utils.logger import info
 
 
 class Configuration(BaseModel):
@@ -16,7 +17,7 @@ class Configuration(BaseModel):
     def run_experiments(self):
         # Run experiments
         for name, experiment in self.experiments.items():
-            print(f"[INFO] Processing experiment `{name}`")
+            info(f"Processing experiment `{name}`")
             experiment.run(self.record_sets, self.input_sources, self.alert_channels)
 
     @classmethod

@@ -9,6 +9,7 @@ from anolib.models.anomaly_condition import AnomalyCondition
 from anolib.models.input_source import InputSource
 from anolib.models.record_set import RecordSet
 from anolib.utils.data_loaders import load_dataframe
+from anolib.utils.logger import error
 
 
 class Experiment(BaseModel):
@@ -18,7 +19,7 @@ class Experiment(BaseModel):
         list[dict[str, list[AnomalyCondition]]] | list[AnomalyCondition] | None
     ) = None
     algorithm: str | None = None
-    alert_channel: str | None = "print"
+    alert_channel: str | None = "STDOUT"
 
     @classmethod
     def from_yaml(cls, yaml_str):
@@ -51,11 +52,16 @@ class Experiment(BaseModel):
                 input_sources.get(record_set.input_source)
             )
 
+        records = pl.DataFrame()
         # apply record set selector
         if record_set.type == RecordSetType.SQL:
             records: pl.DataFrame = globals()[f"_{record_set.input_source}"].sql(
                 record_set.records_selector
             )
+
+        if len(records) == 0:
+            error("RecordSet is empty. Ending experiment run.", exc_info=False)
+            return
 
         alert_channel = alert_channels.get(self.alert_channel, AlertChannel())
 

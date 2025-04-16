@@ -9,7 +9,7 @@ pip install git+https://github.com/rhnk/anolib.git
 ## Getting started
 ### via import
 ```python
-from anolib.models.configuration import Config
+from anolib.models.configuration import Configuration
 config = Configuration.init_from_yaml('config-sample.yml')
 config.run_experiments()
 ```

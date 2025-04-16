@@ -1,5 +1,8 @@
 from enum import Enum
 
+LOGGER_NAMESPACE = "anolib"
+LOGGER_MAX_LEN = 1000
+
 
 class Operators(Enum):
     greater_than_equals = ">="

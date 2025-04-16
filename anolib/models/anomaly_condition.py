@@ -3,6 +3,7 @@ import yaml
 from pydantic import BaseModel
 
 from anolib.constants import AnomalyConditionType, Operators
+from anolib.models.record_set import RecordSet
 
 
 class AnomalyCondition(BaseModel):
@@ -11,10 +12,11 @@ class AnomalyCondition(BaseModel):
     condition: Operators
 
     @classmethod
-    def from_yaml(self, yaml_str):
+    def from_yaml(self, yaml_str: str):
         return self(**yaml.safe_load(yaml_str))
 
-    def get_anomalies(self, records, record_set):
+    def get_anomalies(self, records: pl.DataFrame, record_set: RecordSet):
+        records = records.sort(record_set.timeseries_column)
         if self.type == AnomalyConditionType.PCT_DELTA:
             records = records.with_columns(
                 (
@@ -24,8 +26,8 @@ class AnomalyCondition(BaseModel):
                         - 1
                     )
                     * 100
-                ).alias("pct_delta")
+                ).alias(AnomalyConditionType.PCT_DELTA.value)
             )
             return records.sql(
-                f"""select * from self where pct_delta {self.condition.value} {self.value}"""
+                f"""select * from self where {AnomalyConditionType.PCT_DELTA.value} {self.condition.value} {self.value}"""
             )
