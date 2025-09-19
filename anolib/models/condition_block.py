@@ -1,11 +1,12 @@
 import yaml
 from pydantic import BaseModel
 
-from anolib.models.anomaly_condition import AlertCondition
+from anolib.models.anomaly_condition import AnomalyCondition
 
 
 class ConditionBlock(BaseModel):
-    conditions: list[AlertCondition]
+    """Block containing multiple anomaly conditions."""
+    conditions: list[AnomalyCondition]
 
     @classmethod
     def from_yaml(cls, yaml_str):

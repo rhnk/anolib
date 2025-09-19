@@ -7,6 +7,12 @@ from anolib.models.column_condition import ColumnCondition
 
 
 class RecordSet(BaseModel):
+    """
+    Defines a record set configuration for data selection and processing.
+    
+    A record set specifies how to select and filter data from an input source,
+    including the columns for time series and metrics.
+    """
     input_source: str
     timeseries_column: str
     metric_column: str
@@ -20,8 +26,8 @@ class RecordSet(BaseModel):
 
     @model_validator(mode="after")
     def check_record_selector_for_type_sql(self) -> Self:
-        if self.type == "sql" and not (isinstance(self.records_selector, str)):
+        if self.type == RecordSetType.SQL and not (isinstance(self.records_selector, str)):
             raise ValueError(
-                "records_selector should be a SQL of type string when type is 'sql'"
+                "records_selector should be a SQL of type string when type is 'SQL'"
             )
         return self

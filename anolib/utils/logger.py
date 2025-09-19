@@ -23,11 +23,12 @@ logger.setLevel(LOGGER_LEVEL)
 
 
 def __format(args):
+    """Format arguments for logging with length limits."""
     return "\t".join(
         [
             (
                 repr(arg)
-                if len(str(args)) <= LOGGER_MAX_LEN
+                if len(str(arg)) <= LOGGER_MAX_LEN
                 else f"{str(arg)[:LOGGER_MAX_LEN]}..."
             )
             for arg in args
